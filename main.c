@@ -97,9 +97,6 @@ int main(void)
     uint8_t testsss_write[] = {0x3};
     uint8_t readBuffer[16];
     uint8_t writteBuffer[16] = {0x05, 0x06, 0x07, 0x08, 0x09, 0x05, 0x06, 0x07, 0x08, 0x09, 0x05, 0x06, 0x07, 0x08, 0x09, 0x05};
-//    uint8_t writteBuffer[2];
-
-
     T_buffer[64] = 0x00;
     R_buffer[64] = 0x00;
 
@@ -135,89 +132,15 @@ int main(void)
 	}
 
 
-//
-//    // Byte Write
-//    T_buffer[0] = 0x49;
-//    HAL_I2C_Mem_Write(&hi2c2, AT24C256C_addr, 0x00, 2, T_buffer, 1, 1000);	//write to EEPROM, write to adress 0X0001
-//    HAL_Delay(10);
-//
-//    // Byte Read
-//    HAL_I2C_Mem_Read(&hi2c2, AT24C256C_addr, 0x00, 2, R_buffer, 1, 1000);
-//    HAL_Delay(1);
-//
-//    printf("\n\n\n");
-//
-//	for(int i = 0 ; i < sizeof(R_buffer) ; i++) {
-//		printf("%X ", R_buffer[i]);
-//	}
-//	printf("\n");
-
-
-
-
-
-//
-//
-//	// Page Write
-//    for (int i = 0; i < 64; i++)  {
-//	   T_buffer[i] = i;
-//    }
-//
-//    // Byte Write
-//    HAL_I2C_Mem_Write(&hi2c2, AT24C256C_addr, 0x01, 2, T_buffer, 64, 1000);
-//    HAL_Delay(10);
-//
-//
-//    // Page Read
-//    HAL_I2C_Mem_Read(&hi2c2, AT24C256C_addr, 0x01, 2, R_buffer, 64, 1000);
-//    HAL_Delay(1);
-//
-//
-//    printf("\n\n\n");
-//
-//	for(int i = 0 ; i < sizeof(R_buffer) ; i++) {
-//		printf("%X ", R_buffer[i]);
-//	}
-//	printf("\n");
-
-
-	printf("\n\n\n\n");
-//	__HAL_RCC_I2C2_FORCE_RESET();
-//	HAL_Delay(200);
-//	__HAL_RCC_I2C2_RELEASE_RESET();
-
-	// Byte Write
-//	while (HAL_I2C_Mem_Write(&hi2c2, AT24C256C_addr, 0x00, 1, testsss_write, 1, 1000)!= HAL_OK) {
-//		HAL_StatusTypeDef rets = HAL_I2C_Mem_Write(&hi2c2, AT24C256C_addr, 0x00, 1, testsss_write, 1, 1000);
-//	}
-//	HAL_Delay(1000);
-//	if (rets == HAL_OK) {
-//		//printf("success!! \n");
-//		printf("%X  %X \n", rets, testsss_write);
-//	}else {
-//		printf(" %ld : Fail !!!\n",hi2c2.ErrorCode );
-//	}
-
-//	HAL_Delay(10000);
-
-
-
-
-//	HAL_StatusTypeDef testRet = HAL_I2C_IsDeviceReady(&hi2c2, AT24C256C_addr, 0x05, 1000);
-
 
 	writteBuffer[0] = 0x39;
 
-//	HAL_Delay(1000);
-
+	// Byte Write
 	HAL_StatusTypeDef rets = HAL_I2C_Mem_Write(&hi2c2, AT24C256C_addr, 0x00, 1, writteBuffer, 16, 1000);
 	HAL_Delay(1000);
 	if (rets == HAL_OK) {
 		printf("success to write!! --> %X \n", writteBuffer[0]);
 	}
-
-
-
 
 	// Byte Read
 	HAL_StatusTypeDef ret = HAL_I2C_Mem_Read(&hi2c2, AT24C256C_addr, 0x00, 1, readBuffer, 16, 1000);
@@ -235,23 +158,6 @@ int main(void)
 
 	HAL_Delay(1000);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -262,38 +168,11 @@ int main(void)
 
 	while (1) {
 
-//		writteBuffer[0] = 0x39;
-//
-//		HAL_StatusTypeDef rets = HAL_I2C_Mem_Write(&hi2c2, AT24C256C_addr, 0x00, 1, writteBuffer, 16, 1000);
-//		HAL_Delay(10);
-//		if (rets == HAL_OK) {
-//			printf("success to write!! \n");
-//		}
-//
-//		// Byte Read
-//		HAL_StatusTypeDef ret = HAL_I2C_Mem_Read(&hi2c2, AT24C256C_addr, 0x00, 1, readBuffer, 16, 1000);
-//		if (ret == HAL_OK) {
-//			printf("success!! \n");
-//		}else {
-//			printf(" ret=%d, %ld : Fail !!!\n", ret, hi2c2.ErrorCode );
-//		}
-//
-//		printf("%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X \n",
-//				readBuffer[0], readBuffer[1], readBuffer[2], readBuffer[3], readBuffer[4],
-//				readBuffer[5], readBuffer[6], readBuffer[7], readBuffer[8], readBuffer[9],
-//				readBuffer[10], readBuffer[11], readBuffer[12], readBuffer[13], readBuffer[14],
-//				readBuffer[15]);
-//
-//		HAL_Delay(1000);
-
-
-
 
 //#if 0
 		if (!RB_isempty(&gtUart2Fifo)) {	//RB_isempty -> ringbuffer empty
 			ch = RB_read(&gtUart2Fifo);
 			printf("%X \n", ch);
-//		  HAL_UART_Transmit (&huart2, &ch, 1, 0xFF);
 
 			if (compare(ch, compareTempData))	compareTempData++;
 
@@ -304,16 +183,6 @@ int main(void)
 					printf("--> %X \n", transmitDatas);
 					HAL_UART_Transmit(&huart2, (uint8_t*) &transmitDatas, 1, 0xFFFF);
 				}
-
-
-//				char * transmitDatas = returnTransmitData2();
-//				for (int i = 0 ; i < 503 ; i++) {
-//					printf("--> %X \n", (uint8_t*) transmitDatas[i]);
-//				}
-//
-//				HAL_UART_Transmit(&huart2, (uint8_t*) transmitDatas, 503, 0xFFFF);
-
-
 				compareTempData = 0;
 			}
 
@@ -321,8 +190,6 @@ int main(void)
 
 		HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
 
-//		printf("======== \n");
-//		HAL_Delay(100);
 //#endif
 
     /* USER CODE END WHILE */
